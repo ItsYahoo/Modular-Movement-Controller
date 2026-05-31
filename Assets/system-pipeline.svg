@@ -1,0 +1,71 @@
+<svg width="1180" height="560" viewBox="0 0 1180 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Controller system pipeline</title>
+  <desc id="desc">A system pipeline from player input through state decisions to movement, animation, camera, and debugging outputs.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#D8DEE9"/>
+    </marker>
+    <style>
+      .title { font-family: Segoe UI, Inter, Arial, sans-serif; fill: #F8F4EA; font-size: 34px; font-weight: 800; }
+      .sub { font-family: Segoe UI, Inter, Arial, sans-serif; fill: #AAB6C6; font-size: 16px; }
+      .text { font-family: Segoe UI, Inter, Arial, sans-serif; fill: #F7FAFC; font-size: 18px; font-weight: 700; }
+      .note { font-family: Segoe UI, Inter, Arial, sans-serif; fill: #CBD5E1; font-size: 13px; font-weight: 600; }
+      .box { fill: #17212B; stroke: #5AD8CC; stroke-width: 2.5; }
+      .decision { fill: #211F19; stroke: #F2C14E; stroke-width: 2.5; }
+      .output { fill: #182319; stroke: #64D47A; stroke-width: 2.5; }
+      .debug { fill: #251A1D; stroke: #E84855; stroke-width: 2.5; }
+      .group { fill: #0F1720; stroke: #415166; stroke-width: 2; }
+      .line { stroke: #D8DEE9; stroke-width: 2.6; fill: none; marker-end: url(#arrow); }
+      .soft { stroke: #7D8CA3; stroke-width: 2; fill: none; marker-end: url(#arrow); stroke-dasharray: 7 7; }
+    </style>
+  </defs>
+  <rect width="1180" height="560" rx="24" fill="#0B0F14"/>
+  <text x="40" y="58" class="title">Controller System Pipeline</text>
+  <text x="42" y="88" class="sub">Keep input, rules, motion, animation, camera, and debug feedback separated.</text>
+
+  <rect x="44" y="142" width="178" height="86" rx="18" class="box"/>
+  <text x="86" y="180" class="text">Player Input</text>
+  <text x="76" y="204" class="note">Move, look, jump, dash</text>
+
+  <rect x="280" y="142" width="178" height="86" rx="18" class="box"/>
+  <text x="319" y="180" class="text">Input Reader</text>
+  <text x="318" y="204" class="note">Raw actions only</text>
+
+  <rect x="512" y="110" width="292" height="220" rx="22" class="group"/>
+  <text x="540" y="148" class="text">Decision Layer</text>
+  <rect x="548" y="178" width="220" height="56" rx="14" class="decision"/>
+  <text x="584" y="213" class="text">State Machine</text>
+  <rect x="548" y="256" width="220" height="56" rx="14" class="decision"/>
+  <text x="590" y="291" class="text">Action Gate</text>
+
+  <rect x="512" y="374" width="134" height="68" rx="16" class="box"/>
+  <text x="542" y="401" class="text">Sensors</text>
+  <text x="538" y="423" class="note">Ground, wall</text>
+
+  <rect x="670" y="374" width="134" height="68" rx="16" class="box"/>
+  <text x="696" y="401" class="text">Stamina</text>
+  <text x="704" y="423" class="note">Cost, regen</text>
+
+  <rect x="868" y="110" width="268" height="334" rx="22" class="group"/>
+  <text x="896" y="148" class="text">Output Layer</text>
+  <rect x="904" y="178" width="196" height="56" rx="14" class="output"/>
+  <text x="942" y="213" class="text">Motion Motor</text>
+  <rect x="904" y="256" width="196" height="56" rx="14" class="output"/>
+  <text x="937" y="291" class="text">Animator Bridge</text>
+  <rect x="904" y="334" width="196" height="56" rx="14" class="output"/>
+  <text x="951" y="369" class="text">Camera Target</text>
+
+  <rect x="512" y="472" width="292" height="58" rx="16" class="debug"/>
+  <text x="578" y="508" class="text">Debug Overlay</text>
+
+  <path d="M222 185 H280" class="line"/>
+  <path d="M458 185 H548" class="line"/>
+  <path d="M658 234 V256" class="line"/>
+  <path d="M768 284 H838 V206 H904" class="line"/>
+  <path d="M1002 234 V256" class="line"/>
+  <path d="M1002 312 V334" class="line"/>
+  <path d="M646 408 C665 380 670 338 658 312" class="soft"/>
+  <path d="M737 374 C748 340 741 314 768 284" class="soft"/>
+  <path d="M658 312 V472" class="soft"/>
+  <path d="M737 442 V472" class="soft"/>
+</svg>

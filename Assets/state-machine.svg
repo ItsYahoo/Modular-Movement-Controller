@@ -1,0 +1,93 @@
+<svg width="1180" height="650" viewBox="0 0 1180 650" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Movement state machine diagram</title>
+  <desc id="desc">A state machine layout for grounded locomotion, airborne motion, dash, and exhaustion states.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#D8DEE9"/>
+    </marker>
+    <style>
+      .label { font-family: Segoe UI, Inter, Arial, sans-serif; fill: #F7FAFC; font-size: 19px; font-weight: 700; }
+      .small { font-family: Segoe UI, Inter, Arial, sans-serif; fill: #CBD5E1; font-size: 14px; font-weight: 600; }
+      .state { fill: #17212B; stroke: #5AD8CC; stroke-width: 2.5; }
+      .state2 { fill: #211F19; stroke: #F2C14E; stroke-width: 2.5; }
+      .state3 { fill: #251A1D; stroke: #E84855; stroke-width: 2.5; }
+      .group { fill: #0F1720; stroke: #415166; stroke-width: 2; }
+      .line { stroke: #D8DEE9; stroke-width: 2.6; fill: none; marker-end: url(#arrow); }
+      .soft { stroke: #7D8CA3; stroke-width: 2; fill: none; marker-end: url(#arrow); stroke-dasharray: 7 7; }
+    </style>
+  </defs>
+  <rect width="1180" height="650" rx="24" fill="#0B0F14"/>
+
+  <text x="40" y="58" fill="#F8F4EA" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="34" font-weight="800">Movement State Machine</text>
+  <text x="42" y="88" fill="#AAB6C6" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="16">A readable first-pass controller lifecycle for implementation and debugging.</text>
+
+  <rect x="42" y="125" width="468" height="420" rx="22" class="group"/>
+  <text x="68" y="162" class="label">Grounded Locomotion</text>
+
+  <rect x="86" y="205" width="130" height="58" rx="14" class="state"/>
+  <text x="124" y="242" class="label">Idle</text>
+  <rect x="316" y="205" width="130" height="58" rx="14" class="state"/>
+  <text x="349" y="242" class="label">Walk</text>
+  <rect x="316" y="325" width="130" height="58" rx="14" class="state"/>
+  <text x="354" y="362" class="label">Run</text>
+  <rect x="86" y="325" width="130" height="58" rx="14" class="state2"/>
+  <text x="119" y="362" class="label">Sprint</text>
+  <rect x="86" y="445" width="130" height="58" rx="14" class="state3"/>
+  <text x="102" y="482" class="label">Exhausted</text>
+
+  <path d="M216 234 H316" class="line"/>
+  <text x="247" y="222" class="small">move</text>
+  <path d="M316 254 H216" class="soft"/>
+  <text x="242" y="281" class="small">stop</text>
+  <path d="M381 263 V325" class="line"/>
+  <text x="396" y="300" class="small">run input</text>
+  <path d="M316 354 H216" class="line"/>
+  <text x="237" y="342" class="small">sprint held</text>
+  <path d="M151 383 V445" class="line"/>
+  <text x="164" y="419" class="small">stamina empty</text>
+  <path d="M216 474 C300 474 300 383 316 364" class="soft"/>
+  <text x="250" y="460" class="small">recovers</text>
+
+  <rect x="670" y="125" width="468" height="420" rx="22" class="group"/>
+  <text x="696" y="162" class="label">Airborne Motion</text>
+
+  <rect x="714" y="205" width="130" height="58" rx="14" class="state2"/>
+  <text x="736" y="242" class="label">Jump Start</text>
+  <rect x="956" y="205" width="130" height="58" rx="14" class="state2"/>
+  <text x="989" y="242" class="label">Rising</text>
+  <rect x="956" y="325" width="130" height="58" rx="14" class="state"/>
+  <text x="986" y="362" class="label">Falling</text>
+  <rect x="714" y="325" width="130" height="58" rx="14" class="state"/>
+  <text x="736" y="362" class="label">Wall Slide</text>
+  <rect x="714" y="445" width="130" height="58" rx="14" class="state2"/>
+  <text x="734" y="482" class="label">Wall Jump</text>
+  <rect x="956" y="445" width="130" height="58" rx="14" class="state"/>
+  <text x="989" y="482" class="label">Landing</text>
+
+  <path d="M844 234 H956" class="line"/>
+  <text x="879" y="222" class="small">launch</text>
+  <path d="M1021 263 V325" class="line"/>
+  <text x="1034" y="300" class="small">apex</text>
+  <path d="M956 354 H844" class="line"/>
+  <text x="866" y="342" class="small">wall contact</text>
+  <path d="M779 383 V445" class="line"/>
+  <text x="792" y="420" class="small">jump</text>
+  <path d="M844 474 C945 474 930 250 956 236" class="soft"/>
+  <path d="M1021 383 V445" class="line"/>
+  <text x="1034" y="420" class="small">ground</text>
+
+  <rect x="522" y="280" width="126" height="74" rx="18" class="state3"/>
+  <text x="558" y="324" class="label">Dash</text>
+
+  <path d="M510 292 H522" class="line"/>
+  <text x="517" y="270" class="small">dash</text>
+  <path d="M648 292 H670" class="line"/>
+  <text x="640" y="270" class="small">leaves ground</text>
+  <path d="M648 340 C640 565 246 585 170 504" class="soft"/>
+  <text x="451" y="585" class="small">ends grounded</text>
+
+  <path d="M510 204 C575 168 610 168 670 204" class="line"/>
+  <text x="548" y="160" class="small">jump or fall</text>
+  <path d="M670 520 C600 596 530 596 465 520" class="line"/>
+  <text x="554" y="618" class="small">landed</text>
+</svg>
