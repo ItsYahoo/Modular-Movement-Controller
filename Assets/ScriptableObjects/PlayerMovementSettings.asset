@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerMovementSettings
   m_EditorClassIdentifier: Assembly-CSharp::MovementSettings
   acceleration: 18.5
-  deceleration: 18.5
-  turnSmoothTime: 0.1
+  deceleration: 20
+  turnSmoothTime: 10.5
   EnvironmentMultiplier: 1
-  walkSpeed: 3.5
+  walkSpeed: 2.5
   runSpeed: 7.5
   dashSpeed: 10
   dashDuration: 0.15

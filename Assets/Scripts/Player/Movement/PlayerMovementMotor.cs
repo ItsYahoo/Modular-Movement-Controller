@@ -10,6 +10,7 @@ public class PlayerMovementMotor : MonoBehaviour
     [SerializeField] private MovementSettings movementSettings;
     [SerializeField] private GroundDetector groundDetector;
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private Animator animator;
     
     private Vector3 currentVelocity;
     private Vector3 currentHorizontalVelocity;
@@ -25,6 +26,8 @@ public class PlayerMovementMotor : MonoBehaviour
             groundDetector = GetComponent<GroundDetector>();
         if (characterController == null)
             characterController = GetComponent<CharacterController>();
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -41,10 +44,41 @@ public class PlayerMovementMotor : MonoBehaviour
             currentVelocity.y += movementSettings.GetGravity() * Time.deltaTime;
 
         // Calculate Horizontal Velocity
-        float run = 0f; // 1 if run, 0 if walk
-        float targetSpeed = (run * movementSettings.GetRunSpeed() + (1 - run) * movementSettings.GetWalkSpeed()) * movementSettings.GetEnvironmentMultiplier();
+        CalculateCurrentSpeed(inputDirection, out float speedChangeRate);
+        CalculateCurrentHorizontalVelocity(inputDirection, speedChangeRate);
+        CalculateRotation(inputDirection);
 
-        float speedChangeRate = currentSpeed < targetSpeed
+        Vector3 finalVelocity = new  Vector3(currentHorizontalVelocity.x, currentVelocity.y, currentHorizontalVelocity.z);
+        
+        currentVelocity = finalVelocity;
+
+        characterController.Move(currentVelocity * Time.deltaTime);
+    }
+
+    private void CalculateCurrentHorizontalVelocity(Vector2 inputDirection, float speedChangeRate)
+    {
+        Vector3 cameraRelativeDirection = GetCameraRelativeInputDirection(inputDirection);
+        Vector3 targetHorizontalVelocity = cameraRelativeDirection * currentSpeed;
+
+        currentHorizontalVelocity = Vector3.MoveTowards(
+            currentHorizontalVelocity,
+            targetHorizontalVelocity,
+            speedChangeRate * Time.deltaTime
+        );
+    }
+
+    private void CalculateCurrentSpeed(Vector2 inputDirection, out float speedChangeRate)
+    {
+        bool hasInput = inputDirection.sqrMagnitude > 0.01f;
+        
+        float run = 0f; // 1 if run, 0 if walk
+        float moveSpeed = (run * movementSettings.GetRunSpeed() + (1 - run) * movementSettings.GetWalkSpeed()) * movementSettings.GetEnvironmentMultiplier();
+        
+        float targetSpeed = hasInput
+            ? moveSpeed
+            : 0f;
+        
+        speedChangeRate = currentSpeed < targetSpeed
             ? movementSettings.GetAcceleration()
             : movementSettings.GetDeceleration();
 
@@ -53,23 +87,9 @@ public class PlayerMovementMotor : MonoBehaviour
             targetSpeed,
             speedChangeRate * Time.deltaTime
         );
-        
-        Vector3 cameraRelativeDirection = GetCameraRelativeInputDirection(inputDirection);
-        Vector3 targetHorizontalVelocity = cameraRelativeDirection * targetSpeed;
-
-        currentHorizontalVelocity = Vector3.MoveTowards(
-            currentHorizontalVelocity,
-            targetHorizontalVelocity,
-            speedChangeRate * Time.deltaTime
-        );
-        
-        Vector3 finalVelocity = new  Vector3(currentHorizontalVelocity.x, currentVelocity.y, currentHorizontalVelocity.z);
-        
-        currentVelocity = finalVelocity;
-
-        characterController.Move(currentVelocity * Time.deltaTime);
+        animator.SetFloat("CurrentSpeed", currentSpeed);
     }
-    
+
     private Vector3 GetCameraRelativeInputDirection(Vector2 inputDirection)
     {
         // Get the camera's forward and right vectors
@@ -84,5 +104,26 @@ public class PlayerMovementMotor : MonoBehaviour
         
         // Calculate the movement direction relative to the camera
         return (cameraForward * inputDirection.y + cameraRight * inputDirection.x).normalized;
+    }
+
+    private void CalculateRotation(Vector2 inputDirection)
+    {
+        // Don't rotate if there is no input
+        if (inputDirection.sqrMagnitude < 0.01f)
+            return;
+
+        Vector3 direction = GetCameraRelativeInputDirection(inputDirection);
+
+        // Don't rotate if the direction is too small
+        if (direction.sqrMagnitude < 0.01f)
+            return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            movementSettings.GetTurnSmoothTime() * Time.deltaTime
+        );
     }
 }

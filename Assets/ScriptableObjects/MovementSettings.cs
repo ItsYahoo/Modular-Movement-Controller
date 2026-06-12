@@ -8,7 +8,7 @@ public class MovementSettings : ScriptableObject
     [Header("Ground Settings")]
     [SerializeField] [Range(0.1f, 30f)] private float acceleration = 18.5f;
     [SerializeField] [Range(0.1f, 30f)] private float deceleration = 18.5f;
-    [SerializeField] [Range(0.1f, 5f)] private float turnSmoothTime = 0.1f;
+    [SerializeField] [Range(0.1f, 50f)] private float turnSmoothTime = 10.5f;
     [SerializeField] [Range(0.0f, 1.0f)] private float EnvironmentMultiplier = 1f;
     [SerializeField] [Range(1f, 10f)] private float walkSpeed = 3.5f;
     [SerializeField] [Range(1f, 15f)] private float runSpeed = 7.5f;

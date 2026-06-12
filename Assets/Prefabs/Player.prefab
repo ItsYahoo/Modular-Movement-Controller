@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6755098026696406879}
   - component: {fileID: 4852499552994934725}
   - component: {fileID: 7322207890892591758}
+  - component: {fileID: 1795170012002012080}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -157,14 +158,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundDetector
   checkLocation: {fileID: 1984115233468133709}
-  rayLength: 0.2
-  slopeAngleThreshold: 5
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
-  useSphereCheck: 0
-  useDebugRays: 1
+  rayLength: 0.2
+  slopeAngleThreshold: 5
   useExtendedRangeOnSlope: 1
+  useSphereCheck: 1
+  sphereRadius: 0.5
+  sphereCastStartOffset: 0.5
+  useDebugRays: 1
+--- !u!114 &1795170012002012080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846578820520401019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd4e0a2310e101d4cbff8b43ced3ac74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementMotor
+  movementSettings: {fileID: 11400000, guid: 7755c38298c44c24caca8446aea5d078, type: 2}
+  groundDetector: {fileID: 0}
+  characterController: {fileID: 0}
 --- !u!1 &1984115233468133709
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +226,7 @@ GameObject:
   - component: {fileID: 4088057665409433361}
   - component: {fileID: 5633506371381567324}
   - component: {fileID: 2292832678224728560}
+  - component: {fileID: 6483933414472577277}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -223,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2691476308497476548}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.15212339, y: 0, z: 0, w: 0.98836154}
   m_LocalPosition: {x: 0, y: 1.5035291, z: -4.7685847}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -388,6 +407,19 @@ MonoBehaviour:
         DecelTime: 0
   PlayerIndex: -1
   AutoEnableInputs: 1
+--- !u!114 &6483933414472577277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2691476308497476548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineHardLookAt
+  LookAtOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &7745032736219128962
 GameObject:
   m_ObjectHideFlags: 0
