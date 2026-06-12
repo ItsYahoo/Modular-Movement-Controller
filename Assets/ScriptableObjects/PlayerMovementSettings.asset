@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ecd92688bd0f6a48b74e2eebc86d15f, type: 3}
+  m_Name: PlayerMovementSettings
+  m_EditorClassIdentifier: Assembly-CSharp::MovementSettings
+  acceleration: 18.5
+  deceleration: 18.5
+  turnSmoothTime: 0.1
+  EnvironmentMultiplier: 1
+  walkSpeed: 3.5
+  runSpeed: 7.5
+  dashSpeed: 10
+  dashDuration: 0.15
+  dashCooldown: 1.5
+  gravity: -15.5
+  groundStickForce: 8.5
+  jumpForce: 0.5
+  airControl: 0.5
