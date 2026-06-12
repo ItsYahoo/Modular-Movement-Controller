@@ -71,7 +71,7 @@ public class PlayerMovementMotor : MonoBehaviour
     {
         bool hasInput = inputDirection.sqrMagnitude > 0.01f;
         
-        float run = 0f; // 1 if run, 0 if walk
+        float run = PlayerInputReader.instance.sprintHeld ? 1 : 0; // 1 if run, 0 if walk
         float moveSpeed = (run * movementSettings.GetRunSpeed() + (1 - run) * movementSettings.GetWalkSpeed()) * movementSettings.GetEnvironmentMultiplier();
         
         float targetSpeed = hasInput
