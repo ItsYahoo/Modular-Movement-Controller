@@ -12,16 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecd92688bd0f6a48b74e2eebc86d15f, type: 3}
   m_Name: PlayerMovementSettings
   m_EditorClassIdentifier: Assembly-CSharp::MovementSettings
+  directionChangeAcceleration: 80.5
   acceleration: 18.5
   deceleration: 20
   turnSmoothTime: 10.5
   EnvironmentMultiplier: 1
   walkSpeed: 2.5
-  runSpeed: 7.5
+  runSpeed: 6.25
   dashSpeed: 10
   dashDuration: 0.15
   dashCooldown: 1.5
-  gravity: -15.5
+  gravity: -1.66
   groundStickForce: 8.5
   jumpForce: 0.5
   airControl: 0.5

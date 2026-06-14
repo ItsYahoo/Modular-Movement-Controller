@@ -6,6 +6,7 @@ using UnityEngine;
 public class MovementSettings : ScriptableObject
 {
     [Header("Ground Settings")]
+    [SerializeField] [Range(0.1f, 100f)] private float directionChangeAcceleration = 30f;
     [SerializeField] [Range(0.1f, 30f)] private float acceleration = 18.5f;
     [SerializeField] [Range(0.1f, 30f)] private float deceleration = 18.5f;
     [SerializeField] [Range(0.1f, 50f)] private float turnSmoothTime = 10.5f;
@@ -19,11 +20,12 @@ public class MovementSettings : ScriptableObject
     [SerializeField] [Range(0.0f, 20f)] private float groundStickForce = 8.5f;
     
     [Header("Air Settings")]
-    [SerializeField] [Range(0.1f, 5f)] private float jumpForce = 0.5f;
-    [SerializeField] [Range(0.1f, 5f)] private float airControl = 0.5f;
+    [SerializeField] [Range(0.1f, 10f)] private float jumpForce = 0.5f;
+    [SerializeField] [Range(0.1f, 1f)] private float airControl = 0.5f;
 
     #region Getters
 
+    public float GetDirectionChangeAcceleration() => directionChangeAcceleration;
     public float GetAcceleration() { return acceleration; }
     public float GetDeceleration() { return deceleration; }
     public float GetTurnSmoothTime() { return turnSmoothTime; }

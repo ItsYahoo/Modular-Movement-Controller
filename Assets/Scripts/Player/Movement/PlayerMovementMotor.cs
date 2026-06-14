@@ -44,9 +44,10 @@ public class PlayerMovementMotor : MonoBehaviour
             currentVelocity.y += movementSettings.GetGravity() * Time.deltaTime;
 
         // Calculate Horizontal Velocity
-        CalculateCurrentSpeed(inputDirection, out float speedChangeRate);
-        CalculateCurrentHorizontalVelocity(inputDirection, speedChangeRate);
-        CalculateRotation(inputDirection);
+        Vector3 cameraRelativeDirection = GetCameraRelativeInputDirection(inputDirection);
+        CalculateCurrentSpeed(inputDirection);
+        CalculateCurrentHorizontalVelocity(inputDirection, cameraRelativeDirection);
+        CalculateRotation(inputDirection, cameraRelativeDirection);
 
         Vector3 finalVelocity = new  Vector3(currentHorizontalVelocity.x, currentVelocity.y, currentHorizontalVelocity.z);
         
@@ -55,38 +56,50 @@ public class PlayerMovementMotor : MonoBehaviour
         characterController.Move(currentVelocity * Time.deltaTime);
     }
 
-    private void CalculateCurrentHorizontalVelocity(Vector2 inputDirection, float speedChangeRate)
+    private void CalculateCurrentHorizontalVelocity(Vector2 inputDirection, Vector3 cameraRelativeDirection)
     {
-        Vector3 cameraRelativeDirection = GetCameraRelativeInputDirection(inputDirection);
         Vector3 targetHorizontalVelocity = cameraRelativeDirection * currentSpeed;
+        bool hasInput = inputDirection.sqrMagnitude > 0.01f;
+        bool hasCurrentVelocity = currentHorizontalVelocity.sqrMagnitude > 0.01f;
+
+        bool changingDirection = false;
+        float speedChangeRate;
+        
+        if (hasInput && hasCurrentVelocity)
+        {
+            // Check if the player is trying to change direction by comparing the current
+            // velocity direction with the camera relative input direction
+            Vector3 currentDirection = currentHorizontalVelocity.normalized;
+            float directionDot = Vector3.Dot(currentDirection, cameraRelativeDirection);
+
+            changingDirection = directionDot < 0.75f;
+        }
+        
+        if (!hasInput)
+            speedChangeRate = movementSettings.GetDeceleration();
+        else if (changingDirection)
+            speedChangeRate = movementSettings.GetDirectionChangeAcceleration();
+        else
+            speedChangeRate = movementSettings.GetAcceleration();
 
         currentHorizontalVelocity = Vector3.MoveTowards(
-            currentHorizontalVelocity,
-            targetHorizontalVelocity,
-            speedChangeRate * Time.deltaTime
-        );
+            currentHorizontalVelocity, targetHorizontalVelocity, speedChangeRate * Time.deltaTime);
     }
 
-    private void CalculateCurrentSpeed(Vector2 inputDirection, out float speedChangeRate)
+    private void CalculateCurrentSpeed(Vector2 inputDirection)
     {
         bool hasInput = inputDirection.sqrMagnitude > 0.01f;
         
         float run = PlayerInputReader.instance.sprintHeld ? 1 : 0; // 1 if run, 0 if walk
         float moveSpeed = (run * movementSettings.GetRunSpeed() + (1 - run) * movementSettings.GetWalkSpeed()) * movementSettings.GetEnvironmentMultiplier();
+        float targetSpeed = hasInput ? moveSpeed : 0f;
         
-        float targetSpeed = hasInput
-            ? moveSpeed
-            : 0f;
-        
-        speedChangeRate = currentSpeed < targetSpeed
-            ? movementSettings.GetAcceleration()
-            : movementSettings.GetDeceleration();
+        float speedChangeRate = currentSpeed < targetSpeed
+            ? movementSettings.GetAcceleration() : movementSettings.GetDeceleration();
 
         currentSpeed = Mathf.MoveTowards(
-            currentSpeed,
-            targetSpeed,
-            speedChangeRate * Time.deltaTime
-        );
+            currentSpeed, targetSpeed, speedChangeRate * Time.deltaTime);
+        
         animator.SetFloat("CurrentSpeed", currentSpeed);
     }
 
@@ -106,24 +119,19 @@ public class PlayerMovementMotor : MonoBehaviour
         return (cameraForward * inputDirection.y + cameraRight * inputDirection.x).normalized;
     }
 
-    private void CalculateRotation(Vector2 inputDirection)
+    private void CalculateRotation(Vector2 inputDirection, Vector3 cameraRelativeDirection)
     {
         // Don't rotate if there is no input
         if (inputDirection.sqrMagnitude < 0.01f)
             return;
 
-        Vector3 direction = GetCameraRelativeInputDirection(inputDirection);
-
         // Don't rotate if the direction is too small
-        if (direction.sqrMagnitude < 0.01f)
+        if (cameraRelativeDirection.sqrMagnitude < 0.01f)
             return;
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeDirection);
 
         transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
-            movementSettings.GetTurnSmoothTime() * Time.deltaTime
-        );
+            transform.rotation, targetRotation, movementSettings.GetTurnSmoothTime() * Time.deltaTime);
     }
 }

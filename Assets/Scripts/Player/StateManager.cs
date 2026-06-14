@@ -9,7 +9,13 @@ public class StateManager<TPlayerStates> : MonoBehaviour where TPlayerStates : E
     public StateBase<TPlayerStates> previousState { get; private set; }
     private bool changingState;
 
-    private void Update()
+    public void Start()
+    {
+        previousState = currentState;
+        currentState?.EnterState();
+    }
+    
+    public void Update()
     {
         if (changingState || currentState == null)
             return;
@@ -25,7 +31,7 @@ public class StateManager<TPlayerStates> : MonoBehaviour where TPlayerStates : E
         currentState.TickState();
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         if (changingState || currentState == null)
             return;
@@ -33,7 +39,7 @@ public class StateManager<TPlayerStates> : MonoBehaviour where TPlayerStates : E
         currentState.FixedTickState();
     }
     
-    protected void ChangeState(TPlayerStates newStateKey)
+    public void ChangeState(TPlayerStates newStateKey)
     {
         if (currentState != null && currentState.StateKey.Equals(newStateKey)) 
             return;

@@ -57,5 +57,6 @@ public class PlayerInputReader : MonoBehaviour
     }
 
     #endregion
-    
+
+    public bool IsMoving() => moveInput.sqrMagnitude > 0.1f;
 }
