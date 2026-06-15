@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerStateData
@@ -9,6 +10,8 @@ public class PlayerStateData
     public CharacterController CharacterController { get; private set; }
     public Animator Animator { get; private set; }
     public Camera MainCamera { get; private set; }
+    public CinemachineCamera CinemachineCamera { get; private set; }
+    public CinemachineImpulseSource ImpulseSource { get; private set; }
     public Transform PlayerTransform { get; private set; }
     
     // IN STATE VARIABLES
@@ -16,6 +19,7 @@ public class PlayerStateData
     public Vector3 currentVelocity { get; set; }
     public Vector3 currentHorizontalVelocity { get; set; }
     public float verticalVelocity { get; set; }
+    public bool ignoreGroundStickForce { get; set; }
     
     public PlayerStateData(
         PlayerMovementStateMachine movementStateMachine,
@@ -24,6 +28,7 @@ public class PlayerStateData
         CharacterController characterController,
         Animator animator,
         Camera mainCamera,
+        CinemachineCamera cinemachineCamera,
         Transform playerTransform)
     {
         MovementStateMachine = movementStateMachine;
@@ -32,6 +37,9 @@ public class PlayerStateData
         CharacterController = characterController;
         Animator = animator;
         MainCamera = mainCamera;
+        CinemachineCamera = cinemachineCamera;
         PlayerTransform = playerTransform;
+        
+        ImpulseSource = groundDetector.GetFeetObject().GetComponent<CinemachineImpulseSource>();
     }
 }

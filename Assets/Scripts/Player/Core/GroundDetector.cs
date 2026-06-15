@@ -5,6 +5,7 @@ public class GroundDetector : MonoBehaviour
 {
     [Tooltip("Where the raycast will be cast from. If left empty, it will be cast from the GameObject this script is attached to.")]
     [Header("Ground Detection Settings")]
+    [SerializeField] private Animator animator;
     [SerializeField] private GameObject checkLocation;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float rayLength = 0.2f;
@@ -26,6 +27,8 @@ public class GroundDetector : MonoBehaviour
         if (checkLocation == null)
             checkLocation = gameObject;
         
+        if (animator == null)
+            animator = gameObject.GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -51,6 +54,7 @@ public class GroundDetector : MonoBehaviour
             {
                 // There is no ground
                 isGrounded = false;
+                animator.SetBool("Grounded", isGrounded);
                 isOnSlope = false;
                 groundNormal = Vector3.up;
                 if (useDebugRays)
@@ -64,7 +68,9 @@ public class GroundDetector : MonoBehaviour
                     out hit, currentRayLength, groundLayer))
             {
                 // There is no ground
+                // TODO: UPDATE TO STOP DUPLICATE CODE
                 isGrounded = false;
+                animator.SetBool("Grounded", isGrounded);
                 isOnSlope = false;
                 groundNormal = Vector3.up;
                 if (useDebugRays)
@@ -75,6 +81,7 @@ public class GroundDetector : MonoBehaviour
 
         // There is ground
         isGrounded = true;
+        animator.SetBool("Grounded", isGrounded);
         groundNormal = hit.normal;
         
         // Check if the ground is a slope
@@ -104,5 +111,10 @@ public class GroundDetector : MonoBehaviour
         Gizmos.DrawWireSphere(sphereOrigin, sphereRadius);
         Gizmos.DrawWireSphere(sphereEnd, sphereRadius);
         Gizmos.DrawLine(sphereOrigin, sphereEnd);
+    }
+
+    public GameObject GetFeetObject()
+    {
+        return checkLocation;
     }
 }

@@ -20,11 +20,13 @@ public class MovementSettings : ScriptableObject
     [SerializeField] [Range(0.0f, 20f)] private float groundStickForce = 8.5f;
     
     [Header("Air Settings")]
-    [SerializeField] [Range(0.1f, 10f)] private float jumpForce = 0.5f;
+    [SerializeField] [Range(30f, 60f)] private int jumpFrameRate = 30;
+    [SerializeField] [Range(1f, 100f)] private int launchFrame = 18;
+    [SerializeField] [Range(0.1f, 5f)] private float jumpForce = 0.5f;
     [SerializeField] [Range(0.1f, 1f)] private float airControl = 0.5f;
+    [SerializeField] [Range(0f, 1f)] private float coyoteTime = 0.1f;
 
     #region Getters
-
     public float GetDirectionChangeAcceleration() => directionChangeAcceleration;
     public float GetAcceleration() { return acceleration; }
     public float GetDeceleration() { return deceleration; }
@@ -39,6 +41,7 @@ public class MovementSettings : ScriptableObject
     public float GetGroundStickForce() { return groundStickForce; }
     public float GetJumpForce() { return jumpForce; }
     public float GetAirControl() { return airControl; }
-
+    public float GetLaunchDelay() { return (float) launchFrame / jumpFrameRate; }
+    public float GetCoyoteTime() { return coyoteTime; }
     #endregion
 }

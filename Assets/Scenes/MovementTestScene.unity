@@ -26420,6 +26420,64 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1452475083 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1984115233468133709, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+  m_PrefabInstance: {fileID: 6340724252550461203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1452475085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1452475083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 1
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: -0.18, y: -0.18, z: -0.18}
 --- !u!43 &1681903358
 Mesh:
   m_ObjectHideFlags: 0
@@ -26820,6 +26878,46 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1952097534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2691476308497476548, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+  m_PrefabInstance: {fileID: 6340724252550461203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1952097545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4088057665409433361, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+  m_PrefabInstance: {fileID: 6340724252550461203}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952097534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+--- !u!114 &1952097546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952097534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: 1
+  Gain: 0.6
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    AmplitudeGain: 0.55
+    FrequencyGain: 1.2
+    Duration: 0.2
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &2078058417
 GameObject:
   m_ObjectHideFlags: 0
@@ -27101,9 +27199,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1304668712}
     - target: {fileID: 5630359409709840711, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: cinemachineCamera
+      value: 
+      objectReference: {fileID: 1952097545}
+    - target: {fileID: 5630359409709840711, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
       propertyPath: characterController
       value: 
       objectReference: {fileID: 1304668713}
+    - target: {fileID: 7322207890892591758, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1011354956}
     - target: {fileID: 7322207890892591758, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
       propertyPath: sphereRadius
       value: 0.3
@@ -27112,10 +27218,17 @@ PrefabInstance:
       propertyPath: sphereCastStartOffset
       value: 0.3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1795170012002012080, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2691476308497476548, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1952097546}
+    - targetCorrespondingSourceObject: {fileID: 1984115233468133709, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1452475085}
   m_SourcePrefab: {fileID: 100100000, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

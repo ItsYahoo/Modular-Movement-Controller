@@ -10,11 +10,17 @@ public class PlayerIdleState : PlayerMovementStateBase
         Debug.Log("Entering Idle State");
     }
 
-    public override void TickState()
+    public override PlayerStates ReturnNewState()
     {
-        base.TickState();
-        
         if (PlayerInputReader.instance.IsMoving())
-            stateData.MovementStateMachine.ChangeState(PlayerStates.Walk);
+            return PlayerStates.Walk;
+        
+        if (!stateData.GroundDetector.isGrounded)
+            return PlayerStates.Fall;
+        
+        if (PlayerInputReader.instance.playerInput.Player.Jump.triggered)
+            return PlayerStates.Jump;
+        
+        return StateKey;
     }
 }

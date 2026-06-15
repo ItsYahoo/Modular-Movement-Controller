@@ -9,15 +9,22 @@ public class PlayerWalkState : PlayerMovementStateBase
     {
         Debug.Log("Entering Walk State");
     }
-    
-    public override void TickState()
+
+
+    public override PlayerStates ReturnNewState()
     {
-        base.TickState();
-        
         if (!PlayerInputReader.instance.IsMoving())
-            stateData.MovementStateMachine.ChangeState(PlayerStates.Idle);
-        
+            return PlayerStates.Idle;
+
         if (PlayerInputReader.instance.sprintHeld)
-            stateData.MovementStateMachine.ChangeState(PlayerStates.Run);
+            return PlayerStates.Run;
+        
+        if (!stateData.GroundDetector.isGrounded)
+            return PlayerStates.Fall;
+        
+        if (PlayerInputReader.instance.playerInput.Player.Jump.triggered)
+            return PlayerStates.Jump;
+
+        return StateKey;
     }
 }

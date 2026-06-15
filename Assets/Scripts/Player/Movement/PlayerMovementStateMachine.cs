@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -6,15 +7,22 @@ public class PlayerMovementStateMachine : StateManager<PlayerMovementStateMachin
 {
     public enum PlayerStates
     {
+        // Grounded States
         Idle,
         Walk,
-        Run
+        Run,
+        
+        // Airborne States
+        Jump,
+        Fall,
+        Land
     }
 
     [SerializeField] private MovementSettings movementSettings;
     [SerializeField] private GroundDetector groundDetector;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator animator;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
     private PlayerStateData playerStateData;
 
     public new void Start()
@@ -27,9 +35,15 @@ public class PlayerMovementStateMachine : StateManager<PlayerMovementStateMachin
 
     private void InitializeStates()
     {
+        // Ground States
         states.Add(PlayerStates.Idle, new PlayerIdleState(playerStateData, PlayerStates.Idle));
         states.Add(PlayerStates.Walk, new PlayerWalkState(playerStateData, PlayerStates.Walk));
         states.Add(PlayerStates.Run, new PlayerRunState(playerStateData, PlayerStates.Run));
+        
+        // Airborne States
+        states.Add(PlayerStates.Jump, new PlayerJumpState(playerStateData, PlayerStates.Jump));
+        states.Add(PlayerStates.Fall, new PlayerFallState(playerStateData, PlayerStates.Fall));
+        states.Add(PlayerStates.Land, new PlayerLandState(playerStateData, PlayerStates.Land));
         
         currentState = states[PlayerStates.Idle];
     }
@@ -43,6 +57,7 @@ public class PlayerMovementStateMachine : StateManager<PlayerMovementStateMachin
             characterController,
             animator,
             Camera.main,
+            cinemachineCamera,
             transform
         );
     }

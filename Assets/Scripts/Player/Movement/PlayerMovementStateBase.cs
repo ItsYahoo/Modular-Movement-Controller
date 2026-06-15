@@ -1,9 +1,10 @@
 using UnityEngine;
+using static PlayerMovementStateMachine;
 
-public abstract class PlayerMovementStateBase : StateBase<PlayerMovementStateMachine.PlayerStates>
+public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
 {
     protected readonly PlayerStateData stateData;
-    protected PlayerMovementStateBase(PlayerStateData stateData, PlayerMovementStateMachine.PlayerStates stateKey) 
+    protected PlayerMovementStateBase(PlayerStateData stateData, PlayerStates stateKey) 
         : base(stateKey)
     {
         this.stateData = stateData;
@@ -38,7 +39,7 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerMovementStateMac
     {
         Vector3 tempYVelocity = stateData.currentVelocity;
 
-        if (stateData.GroundDetector.isGrounded)
+        if (stateData.GroundDetector.isGrounded && !stateData.ignoreGroundStickForce)
         {
             stateData.verticalVelocity = 0f;
             tempYVelocity.y = -stateData.MovementSettings.GetGroundStickForce();
@@ -146,4 +147,12 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerMovementStateMac
     }
 
     #endregion
+    
+    protected void PreformJump()
+    {
+        float gravity = stateData.MovementSettings.GetGravity();
+        float jumpForce = stateData.MovementSettings.GetJumpForce();
+        
+        stateData.verticalVelocity = Mathf.Sqrt(jumpForce * -2f * gravity);
+    }
 }

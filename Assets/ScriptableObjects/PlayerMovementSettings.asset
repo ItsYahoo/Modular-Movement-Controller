@@ -22,7 +22,9 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.15
   dashCooldown: 1.5
-  gravity: -1.66
+  gravity: -15.5
   groundStickForce: 8.5
-  jumpForce: 0.5
-  airControl: 0.5
+  jumpFrameRate: 30
+  launchFrame: 4
+  jumpForce: 1.15
+  airControl: 0.407
