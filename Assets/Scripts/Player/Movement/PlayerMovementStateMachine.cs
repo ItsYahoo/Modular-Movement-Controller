@@ -23,6 +23,8 @@ public class PlayerMovementStateMachine : StateManager<PlayerMovementStateMachin
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Animator animator;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+    [SerializeField] private SpeedLinesController speedLinesController;
+    public StaminaResource staminaResource;
     private PlayerStateData playerStateData;
 
     public new void Start()
@@ -50,15 +52,20 @@ public class PlayerMovementStateMachine : StateManager<PlayerMovementStateMachin
 
     private void InitializeData()
     {
+        staminaResource = new StaminaResource(
+            movementSettings);
+        
         playerStateData = new PlayerStateData(
             this,
             movementSettings,
+            speedLinesController,
             groundDetector,
             characterController,
             animator,
             Camera.main,
             cinemachineCamera,
-            transform
+            transform,
+            staminaResource
         );
     }
 }

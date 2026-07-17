@@ -13,6 +13,7 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
     public override void TickState()
     {
         Move(PlayerInputReader.instance.moveInput);
+        stateData.StaminaResource.TickStamina(Time.deltaTime);
     }
 
     #region Movement and Rotation Logic
@@ -26,7 +27,7 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
         Vector3 cameraRelativeDirection = GetCameraRelativeInputDirection(inputDirection);
         CalculateCurrentSpeed();
         CalculateCurrentHorizontalVelocity(cameraRelativeDirection);
-        CalculateRotation(inputDirection, cameraRelativeDirection);
+        CalculateRotation(cameraRelativeDirection);
         
         // Apply Final Velocity
         Vector3 finalVelocity = new  Vector3(stateData.currentHorizontalVelocity.x, stateData.currentVelocity.y, stateData.currentHorizontalVelocity.z);
@@ -78,9 +79,11 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
 
     private void CalculateCurrentSpeed()
     {
+        float landingMul = stateData.MovementStateMachine.currentState is PlayerLandState ? 0 : 1;
         float run = stateData.MovementStateMachine.currentState is PlayerRunState ? 1 : 0; // 1 if run, 0 if walk
         float moveSpeed = (run * stateData.MovementSettings.GetRunSpeed() + (1 - run) * 
-            stateData.MovementSettings.GetWalkSpeed()) * stateData.MovementSettings.GetEnvironmentMultiplier();
+                            stateData.MovementSettings.GetWalkSpeed()) *
+                          (stateData.MovementSettings.GetEnvironmentMultiplier() * landingMul);
         float targetSpeed = PlayerInputReader.instance.IsMoving() ? moveSpeed : 0f;
         
         float speedChangeRate = stateData.currentSpeed < targetSpeed
@@ -108,10 +111,10 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
         return (cameraForward * inputDirection.y + cameraRight * inputDirection.x).normalized;
     }
 
-    private void CalculateRotation(Vector2 inputDirection, Vector3 cameraRelativeDirection)
+    private void CalculateRotation(Vector3 cameraRelativeDirection)
     {
         // Don't rotate if there is no input
-        if (!PlayerInputReader.instance.IsMoving())
+        if (!PlayerInputReader.instance.IsMoving() || stateData.MovementStateMachine.currentState is PlayerLandState)
             return;
 
         // Don't rotate if the direction is too small

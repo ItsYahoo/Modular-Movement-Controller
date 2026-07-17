@@ -104,7 +104,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _InnerRadius: 0.85
-    - _Intensity: 0.1
+    - _Intensity: 0
     - _LineSpeed: 1
     - _LineStrength: 48.9
     - _Metallic: 0

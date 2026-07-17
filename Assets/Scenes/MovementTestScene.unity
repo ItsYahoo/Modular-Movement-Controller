@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &55241736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 846578820520401019, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+  m_PrefabInstance: {fileID: 6340724252550461203}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &77004113
 GameObject:
   m_ObjectHideFlags: 0
@@ -25782,7 +25787,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7322207890892591758, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
   m_PrefabInstance: {fileID: 6340724252550461203}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 55241736}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ff92a79e5bc44d3928de04600305318, type: 3}
@@ -25793,6 +25798,20 @@ CharacterController:
   m_CorrespondingSourceObject: {fileID: 4852499552994934725, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
   m_PrefabInstance: {fileID: 6340724252550461203}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1304668715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55241736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08ac6a4a333429f989ea663614aaa4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpeedLinesController
+  speedLinesMaterial: {fileID: 2100000, guid: 2e84599c2b8317147ae5583629683961, type: 2}
+  fadeSpeed: 0.35
 --- !u!1 &1378477978
 GameObject:
   m_ObjectHideFlags: 0
@@ -27269,6 +27288,50 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[0]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[1]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[2]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[3]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[4]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[5]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[6]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[7]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[8]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3495882675778325655, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[9]'
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5630359409709840711, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
       propertyPath: animator
       value: 
@@ -27285,6 +27348,10 @@ PrefabInstance:
       propertyPath: characterController
       value: 
       objectReference: {fileID: 1304668713}
+    - target: {fileID: 5630359409709840711, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      propertyPath: speedLinesController
+      value: 
+      objectReference: {fileID: 1304668715}
     - target: {fileID: 5633506371381567324, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
       propertyPath: TrackerSettings.PositionDamping.x
       value: 0.2
@@ -27314,6 +27381,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 846578820520401019, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1304668715}
     - targetCorrespondingSourceObject: {fileID: 2691476308497476548, guid: b16f874594e22e1408d8467a9b672beb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1952097546}

@@ -16,7 +16,6 @@ public class PlayerJumpState : PlayerMovementStateBase
         hasLaunched = false;
 
         stateData.ignoreGroundStickForce = true;
-        stateData.Animator.ResetTrigger("Fall");
         stateData.Animator.SetTrigger("Jump");
     }
 
@@ -48,5 +47,10 @@ public class PlayerJumpState : PlayerMovementStateBase
         }
 
         return StateKey;
+    }
+    
+    public override void ExitState()
+    {
+        stateData.Animator.ResetTrigger("Jump");
     }
 }

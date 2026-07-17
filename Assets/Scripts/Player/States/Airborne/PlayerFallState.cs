@@ -32,4 +32,9 @@ public class PlayerFallState : PlayerMovementStateBase
 
         return StateKey;
     }
+    
+    public override void ExitState()
+    {
+        stateData.Animator.ResetTrigger("Fall");
+    }
 }

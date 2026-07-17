@@ -8,6 +8,7 @@ public class PlayerRunState : PlayerMovementStateBase
     public override void EnterState()
     {
         Debug.Log("Entering Run State");
+        stateData.SpeedLinesController.SetIntensity(0.25f);
     }
 
     public override PlayerStates ReturnNewState()
@@ -25,5 +26,10 @@ public class PlayerRunState : PlayerMovementStateBase
             return PlayerStates.Jump;
 
         return StateKey;
+    }
+
+    public override void ExitState()
+    {
+        stateData.SpeedLinesController.SetIntensity(0f);
     }
 }

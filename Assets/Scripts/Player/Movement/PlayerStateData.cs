@@ -5,6 +5,7 @@ public class PlayerStateData
 {
     // OUTSIDE STATE VARIABLES
     public PlayerMovementStateMachine MovementStateMachine { get; private set; }
+    public SpeedLinesController SpeedLinesController { get; private set; }
     public MovementSettings MovementSettings { get; private set; }
     public GroundDetector GroundDetector { get; private set; }
     public CharacterController CharacterController { get; private set; }
@@ -13,6 +14,7 @@ public class PlayerStateData
     public CinemachineCamera CinemachineCamera { get; private set; }
     public CinemachineImpulseSource ImpulseSource { get; private set; }
     public Transform PlayerTransform { get; private set; }
+    public StaminaResource StaminaResource { get; private set; }
     
     // IN STATE VARIABLES
     public float currentSpeed { get; set; }
@@ -24,21 +26,25 @@ public class PlayerStateData
     public PlayerStateData(
         PlayerMovementStateMachine movementStateMachine,
         MovementSettings movementSettings,
+        SpeedLinesController speedLinesController,
         GroundDetector groundDetector,
         CharacterController characterController,
         Animator animator,
         Camera mainCamera,
         CinemachineCamera cinemachineCamera,
-        Transform playerTransform)
+        Transform playerTransform,
+        StaminaResource staminaResource)
     {
         MovementStateMachine = movementStateMachine;
         MovementSettings = movementSettings;
+        SpeedLinesController = speedLinesController;
         GroundDetector = groundDetector;
         CharacterController = characterController;
         Animator = animator;
         MainCamera = mainCamera;
         CinemachineCamera = cinemachineCamera;
         PlayerTransform = playerTransform;
+        StaminaResource = staminaResource;
         
         ImpulseSource = groundDetector.GetFeetObject().GetComponent<CinemachineImpulseSource>();
     }

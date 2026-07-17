@@ -24,7 +24,10 @@ MonoBehaviour:
   dashCooldown: 1.5
   gravity: -15.5
   groundStickForce: 8.5
+  landDuration: 0.15
   jumpFrameRate: 30
   launchFrame: 4
   jumpForce: 1.15
   airControl: 0.407
+  coyoteTime: 0.1
+  maxStamina: 100

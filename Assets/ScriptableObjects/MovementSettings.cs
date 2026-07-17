@@ -18,6 +18,7 @@ public class MovementSettings : ScriptableObject
     [SerializeField] [Range(0.1f, 10f)] private float dashCooldown = 1.5f;
     [SerializeField] [Range(-20f, -0.1f)] private float gravity = -15.85f;
     [SerializeField] [Range(0.0f, 20f)] private float groundStickForce = 8.5f;
+    [SerializeField] [Range(0.0f, 5f)] private float landDuration = 0.15f;
     
     [Header("Air Settings")]
     [SerializeField] [Range(30f, 60f)] private int jumpFrameRate = 30;
@@ -25,6 +26,16 @@ public class MovementSettings : ScriptableObject
     [SerializeField] [Range(0.1f, 5f)] private float jumpForce = 0.5f;
     [SerializeField] [Range(0.1f, 1f)] private float airControl = 0.5f;
     [SerializeField] [Range(0f, 1f)] private float coyoteTime = 0.1f;
+
+    [Header("Stamina Settings")]
+    [SerializeField] private bool useStamina = true;
+    [SerializeField] [Range(10f, 400f)] private float maxStamina = 100f;
+    [SerializeField] [Range(0.5f, 100f)] private float regenRate = 20f;
+    [SerializeField] [Range(0f, 10f)]  private float regenDelay = 1f;
+
+    [Header("Stamina Values")]
+    [SerializeField] private float sprintCost = 0.15f;
+    [SerializeField] private float dashCost = 15.5f;
 
     #region Getters
     public float GetDirectionChangeAcceleration() => directionChangeAcceleration;
@@ -37,11 +48,15 @@ public class MovementSettings : ScriptableObject
     public float GetDashSpeed() { return dashSpeed; }
     public float GetDashDuration() { return dashDuration; }
     public float GetDashCooldown() { return dashCooldown; }
+    public float GetLandDuration() { return landDuration; }
     public float GetGravity() { return gravity; }
     public float GetGroundStickForce() { return groundStickForce; }
     public float GetJumpForce() { return jumpForce; }
     public float GetAirControl() { return airControl; }
     public float GetLaunchDelay() { return (float) launchFrame / jumpFrameRate; }
     public float GetCoyoteTime() { return coyoteTime; }
+    public float GetMaxStamina() { return maxStamina; }
+    public float GetRegenRate() { return regenRate; }
+    public float GetRegenDelay() { return regenDelay; }
     #endregion
 }
