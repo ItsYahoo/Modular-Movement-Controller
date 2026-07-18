@@ -13,6 +13,13 @@ public class PlayerRunState : PlayerMovementStateBase
 
     public override PlayerStates ReturnNewState()
     {
+        bool stillHasStamina = stateData.StaminaResource.Drain(
+            stateData.MovementSettings.GetSprintCost(), 
+            Time.deltaTime, true);
+        
+        if (!stillHasStamina)
+            return PlayerStates.Walk;
+        
         if (!PlayerInputReader.instance.IsMoving())
             return PlayerStates.Idle;
         

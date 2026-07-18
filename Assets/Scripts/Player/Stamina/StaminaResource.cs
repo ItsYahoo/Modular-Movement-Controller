@@ -1,16 +1,18 @@
-using UnityEditor;
 using UnityEngine;
 
 public class StaminaResource
 {
-    public readonly MovementSettings movementSettings;
-    public StaminaResource(MovementSettings _movementSettings)
+    public StaminaResource(MovementSettings movementSettings)
     {
-        movementSettings = _movementSettings;
+        this.movementSettings = movementSettings;
+        currentStamina = movementSettings.GetMaxStamina();
     }
-    
+
+    public readonly MovementSettings movementSettings;
+
     private float currentStamina;
     private float currentRegenTimer;
+    private float regenBuffer;
 
     public void TickStamina(float deltaTime)
     {
@@ -18,6 +20,11 @@ public class StaminaResource
         {
             currentRegenTimer -= deltaTime;
             return;
+        }
+
+        if (regenBuffer > 0f)
+        {
+            regenBuffer -= deltaTime;
         }
 
         if (currentStamina < movementSettings.GetMaxStamina())
@@ -31,32 +38,58 @@ public class StaminaResource
     {
         if (!CanAfford(amount))
             return false;
-        
-        currentStamina -= amount;
-        ResetRegenDelay();
-        return true;
-    }
 
-    public bool Drain(float amountPerSecond, float DeltaTime)
-    {
-        if (currentStamina <= 0)
-            return false;
-        
-        currentStamina -= amountPerSecond * DeltaTime;
+        currentStamina -= amount;
         currentStamina = Mathf.Max(currentStamina, 0f);
 
         ResetRegenDelay();
+
+        if (currentStamina <= 0f)
+            ResetRegenBuffer();
+
+        return true;
+    }
+
+    public bool Drain(float amountPerSecond, float deltaTime, bool toEmpty = false)
+    {
+        if (currentStamina <= 0f)
+            return false;
+
+        currentStamina -= amountPerSecond * deltaTime;
+        currentStamina = Mathf.Max(currentStamina, 0f);
+
+        ResetRegenDelay();
+
+        if (currentStamina <= 0f)
+        {
+            ResetRegenBuffer();
+            if (toEmpty)
+                return false;
+        }
+
+        if (toEmpty)
+            return true;
         return currentStamina > 0f;
     }
 
     public bool CanAfford(float amount)
     {
+        if (regenBuffer > 0f)
+            return false;
+
         return currentStamina >= amount;
     }
-    public void ResetRegenDelay()
+
+    private void ResetRegenDelay()
     {
         currentRegenTimer = movementSettings.GetRegenDelay();
     }
+
+    private void ResetRegenBuffer()
+    {
+        regenBuffer = movementSettings.GetRegenBuffer();
+    }
+
     public float GetCurrentStamina()
     {
         return currentStamina;

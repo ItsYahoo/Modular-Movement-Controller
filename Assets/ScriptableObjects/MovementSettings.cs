@@ -28,10 +28,10 @@ public class MovementSettings : ScriptableObject
     [SerializeField] [Range(0f, 1f)] private float coyoteTime = 0.1f;
 
     [Header("Stamina Settings")]
-    [SerializeField] private bool useStamina = true;
     [SerializeField] [Range(10f, 400f)] private float maxStamina = 100f;
     [SerializeField] [Range(0.5f, 100f)] private float regenRate = 20f;
     [SerializeField] [Range(0f, 10f)]  private float regenDelay = 1f;
+    [SerializeField] [Range(0f, 10f)] private float regenBuffer = 1.5f;
 
     [Header("Stamina Values")]
     [SerializeField] private float sprintCost = 0.15f;
@@ -58,5 +58,7 @@ public class MovementSettings : ScriptableObject
     public float GetMaxStamina() { return maxStamina; }
     public float GetRegenRate() { return regenRate; }
     public float GetRegenDelay() { return regenDelay; }
+    public float GetSprintCost() { return sprintCost; }
+    public float GetRegenBuffer() { return regenBuffer; }
     #endregion
 }

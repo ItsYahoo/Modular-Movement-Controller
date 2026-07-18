@@ -16,7 +16,7 @@ public class PlayerWalkState : PlayerMovementStateBase
         if (!PlayerInputReader.instance.IsMoving())
             return PlayerStates.Idle;
 
-        if (PlayerInputReader.instance.sprintHeld)
+        if (PlayerInputReader.instance.sprintHeld && stateData.StaminaResource.CanAfford(stateData.MovementSettings.GetSprintCost()))
             return PlayerStates.Run;
         
         if (!stateData.GroundDetector.isGrounded)
