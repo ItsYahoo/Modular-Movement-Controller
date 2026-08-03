@@ -72,7 +72,7 @@ This project is built around one question:
 
 The controller is designed so each system has a narrow job.
 <p align="center">
-  <img src="./Preview/system-pipeline.png" alt="Controller system pipeline" width="100%">
+  <img src="./preview/system-pipeline.png" alt="Controller system pipeline" width="100%">
 </p>
 
 ## Movement State Machine
@@ -95,7 +95,7 @@ The movement state machine keeps rules readable by giving each major movement mo
 ## Stamina Action Gate
 
 <p align="center">
-  <img src="./Preview/staminaGate.png" alt="Stamina action gate flow" width="100%">
+  <img src="./preview/staminaGate.png" alt="Stamina action gate flow" width="100%">
 </p>
 
 Stamina should be treated as a reusable resource system, not hardcoded sprint logic. This keeps it ready for future traversal and combat actions.
