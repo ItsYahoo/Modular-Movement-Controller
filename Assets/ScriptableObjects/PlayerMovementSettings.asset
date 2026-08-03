@@ -31,3 +31,8 @@ MonoBehaviour:
   airControl: 0.407
   coyoteTime: 0.1
   maxStamina: 100
+  regenRate: 20
+  regenDelay: 1
+  regenBuffer: 1.5
+  sprintCost: 25.5
+  dashCost: 15.5

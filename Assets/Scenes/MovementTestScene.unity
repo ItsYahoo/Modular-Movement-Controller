@@ -9566,6 +9566,7 @@ GameObject:
   - component: {fileID: 410537624}
   - component: {fileID: 410537623}
   - component: {fileID: 410537625}
+  - component: {fileID: 410537626}
   - component: {fileID: 410537622}
   - component: {fileID: 410537621}
   m_Layer: 5
@@ -9687,6 +9688,24 @@ MonoBehaviour:
   staminaBar: {fileID: 1757287043}
   barFillRate: 3
   playerMovement: {fileID: 1304668716}
+  emptyStaminaBarColor: {r: 1, g: 0, b: 0, a: 1}
+  emptyStaminaBarColor2: {r: 1, g: 0.2705882, b: 0, a: 1}
+  emptyStaminaFlashRate: 0.15
+--- !u!114 &410537626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410537619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef9c5518d26644439b9eab732addf40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraUIOrbit
+  targetTransform: {fileID: 1304668718}
+  targetOffset: {x: 0, y: 0, z: 0}
+  distance: 0.36
 --- !u!43 &629339677
 Mesh:
   m_ObjectHideFlags: 0

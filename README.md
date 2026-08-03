@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./Assets/mmc-banner.svg" alt="Modular Movement Controller banner" width="100%">
+  <img src="./preview/mmc-banner.gif">
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Engine-Unity-111111?style=for-the-badge&logo=unity&logoColor=white" alt="Unity badge">
-  <img src="https://img.shields.io/badge/Code-C%23-68217A?style=for-the-badge&logo=csharp&logoColor=white" alt="C# badge">
+  <img src="https://img.shields.io/badge/Code-C%23-68217A?style=for-the-badge&logo=c#&logoColor=white" alt="C# badge">
   <img src="https://img.shields.io/badge/Architecture-State%20Machine-40C9A2?style=for-the-badge" alt="State machine badge">
   <img src="https://img.shields.io/badge/Status-Prototype%20Foundation-F2C14E?style=for-the-badge" alt="Prototype status badge">
   <img src="https://img.shields.io/badge/Focus-Portfolio%20Showcase-E84855?style=for-the-badge" alt="Portfolio showcase badge">
@@ -13,7 +13,7 @@
 <h1 align="center">Modular Movement Controller</h1>
 
 <p align="center">
-  A Unity gameplay programming prototype focused on responsive third-person movement, stamina-based traversal, clean state architecture, and portfolio-ready technical presentation.
+  A Unity gameplay programming prototype focused on responsive third-person movement, stamina-based traversal, with a clean state architecture.
 </p>
 
 ---
@@ -24,7 +24,7 @@ The Modular Movement Controller is a focused Unity prototype designed to show ho
 
 This project is built around one question:
 
-> Can the controller feel responsive, readable, expandable, and professional enough to belong in a portfolio?
+> Can the controller feel responsive, readable, expandable, and professional enough for real use?
 
 ## Core Goals
 
@@ -33,7 +33,7 @@ This project is built around one question:
 | Responsive movement | Input handling, acceleration, deceleration, rotation smoothing, and player feel |
 | Modular states | Clear gameplay architecture that separates movement behavior into readable pieces |
 | Stamina-based traversal | Resource checks, action costs, regen delay, blocked actions, and UI feedback |
-| Debug visibility | Ground checks, wall checks, state display, velocity display, and tuning support |
+| Debug visibility | Ground checks, state display, velocity display, and tuning support |
 | Portfolio polish | Clean documentation, demo scene, visuals, screenshots, and technical breakdown |
 
 ## Planned Feature Set
@@ -66,33 +66,16 @@ This project is built around one question:
 ### Advanced Traversal
 
 - Dash or dodge with cooldown and stamina cost
-- Wall slide and wall jump foundation
-- Future expansion paths for vaulting, climbing, gliding, swimming, lock-on, and combat integration
+- Future expansion for vaulting, climbing, gliding, swimming, lock-on, and combat integration
 
 ## System Architecture
 
+The controller is designed so each system has a narrow job.
 <p align="center">
-  <img src="./Assets/system-pipeline.svg" alt="Controller system pipeline" width="100%">
+  <img src="./Preview/system-pipeline.png" alt="Controller system pipeline" width="100%">
 </p>
-
-The controller is designed so each system has a narrow job:
-
-| Layer | Responsibility |
-| --- | --- |
-| Input Reader | Reads Unity Input System actions and exposes clean input values |
-| Sensors | Reports grounded state, slope data, wall contact, and environment checks |
-| State Machine | Owns the current movement state and state transitions |
-| Action Gate | Checks whether actions are allowed based on state, stamina, and cooldowns |
-| Movement Motor | Applies velocity, gravity, acceleration, rotation, and movement output |
-| Animator Bridge | Converts gameplay state into Animator parameters |
-| Camera Target | Provides stable follow targets and camera feedback hooks |
-| Debug Overlay | Shows state, stamina, velocity, grounded status, and sensor data |
 
 ## Movement State Machine
-
-<p align="center">
-  <img src="./Assets/state-machine.svg" alt="Movement state machine" width="100%">
-</p>
 
 The movement state machine keeps rules readable by giving each major movement mode its own behavior. States should decide what they are allowed to do, when they can transition, and which movement values they control.
 
@@ -103,20 +86,16 @@ The movement state machine keeps rules readable by giving each major movement mo
 | Idle | No movement input while grounded | Walk, Jump, Fall |
 | Walk | Movement input at normal speed | Idle, Run, Sprint, Jump, Fall |
 | Run | Faster grounded movement without full sprint cost | Walk, Sprint, Jump, Fall |
-| Sprint | High-speed movement that drains stamina | Run, Walk, Jump, Fall, Exhausted |
-| Exhausted | Temporary state when stamina is depleted | Run, Walk, Idle |
-| Jump Start | Initial jump action and vertical launch | Rising, Fall |
-| Rising | Player is moving upward after jump | Falling |
-| Falling | Player is airborne and descending | Landing, Dash, Wall Slide |
+| Sprint | High-speed movement that drains stamina | Run, Walk, Jump, Fall |
+| Jump | Initial jump action and vertical launch | Fall |
+| Falling | Player is airborne and descending | Landing, Dash |
 | Dash | Short burst movement with stamina cost | Grounded, Airborne |
-| Wall Slide | Player is contacting a valid wall while airborne | Wall Jump, Fall |
-| Wall Jump | Player jumps away from a wall | Rising, Fall |
 | Landing | Short impact state for animation and feedback | Idle, Walk, Run |
 
 ## Stamina Action Gate
 
 <p align="center">
-  <img src="./Assets/stamina-gate.svg" alt="Stamina action gate flow" width="100%">
+  <img src="./Preview/staminaGate.png" alt="Stamina action gate flow" width="100%">
 </p>
 
 Stamina should be treated as a reusable resource system, not hardcoded sprint logic. This keeps it ready for future traversal and combat actions.
@@ -150,7 +129,7 @@ These values should be exposed in the Inspector so movement feel can be adjusted
 
 | Category | Example Values |
 | --- | --- |
-| Ground | Walk speed, run speed, sprint speed, acceleration, deceleration |
+| Ground | Walk speed, run speed, acceleration, deceleration |
 | Rotation | Rotation speed, turn smoothing |
 | Jump | Jump velocity, gravity multiplier, coyote time, jump buffer time |
 | Air | Air control, fall multiplier, landing threshold |
@@ -162,12 +141,11 @@ These values should be exposed in the Inspector so movement feel can be adjusted
 
 | Parameter | Type | Purpose |
 | --- | --- | --- |
-| Move Speed | Float | Blends idle, walk, run, and sprint animation |
+| Move Speed | Float | Blends idle, walk, and run animation |
 | Is Grounded | Bool | Switches between grounded and airborne animation logic |
-| Vertical Velocity | Float | Determines rising vs. falling behavior |
-| Is Sprinting | Bool | Drives sprint animation and effects |
-| Is Dashing | Bool or Trigger | Drives dash animation and timing |
-| Is Wall Sliding | Bool | Drives wall slide animation |
+| Fall | Trigger | Determines falling behavior |
+| Jump | Trigger | Determines rising behavior |
+| Dash | Trigger | Drives dash animation and timing |
 | Landed | Trigger | Plays landing impact feedback |
 
 ## Debug and Developer Tools
@@ -181,9 +159,9 @@ Debug tools are part of the portfolio value. They show that the controller was b
 - Wall detection rays or overlap shapes
 - Slope angle readout
 - Dash cooldown readout
-- Optional state transition log
+- State transition log
 
-## Suggested Unity Folder Structure
+## Planned Unity Folder Structure
 
 ```text
 Assets/
@@ -205,32 +183,6 @@ Assets/
 `-- UnityDL/
 ```
 
-## Development Roadmap
-
-| Phase | Focus | Status |
-| --- | --- | --- |
-| 1 | Project setup, input reader, basic scene, debug overlay | Planned |
-| 2 | Grounded idle, walk, run, rotation, acceleration | Planned |
-| 3 | Jump, fall, landing, coyote time, jump buffer | Planned |
-| 4 | Stamina resource, sprint drain, regen delay, blocked feedback | Planned |
-| 5 | Dash or dodge with cost, cooldown, and state transitions | Planned |
-| 6 | Wall slide and wall jump prototype | Planned |
-| 7 | Camera polish, animation parameters, VFX and SFX hooks | Planned |
-| 8 | Demo scene, screenshots, video capture, final portfolio write-up | Planned |
-
-## Portfolio Deliverables
-
-By the end, this project should include:
-
-- Short gameplay video or GIF
-- Screenshots of the demo scene
-- State machine diagram
-- Debug overlay screenshot
-- README technical breakdown
-- Clean GitHub repository structure
-- Playable build or downloadable demo
-- Notes about challenges, design choices, and future improvements
-
 ## Built With
 
 | Tool | Use |
@@ -240,6 +192,9 @@ By the end, this project should include:
 | Unity Input System | Modern input mapping and action handling |
 | Cinemachine | Camera follow and camera feel |
 | GitHub | Version control and portfolio presentation |
+| PicoChan | Free 3D Model By Picola Inc. |
+| Grid Prototype Materials | Grid Materials used for presentation by  MLAgent |
+
 
 ## Author
 
