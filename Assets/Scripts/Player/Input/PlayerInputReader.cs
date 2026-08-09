@@ -16,6 +16,9 @@ public class PlayerInputReader : MonoBehaviour
         
         playerInput = new PlayerInput();
         EnablePlayerInputs();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnDisable()

@@ -20,6 +20,7 @@ public class GroundDetector : MonoBehaviour
     
     public bool isGrounded { get; private set; }
     public bool isOnSlope { get; private set; }
+    public float slopeAngle { get; private set; }
     public Vector3 groundNormal { get; private set; }
 
     private void Start()
@@ -85,7 +86,8 @@ public class GroundDetector : MonoBehaviour
         groundNormal = hit.normal;
         
         // Check if the ground is a slope
-        isOnSlope = Vector3.Angle(hit.normal, Vector3.up) > slopeAngleThreshold;
+        slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+        isOnSlope = slopeAngle > slopeAngleThreshold;
         
         if (useDebugRays)
             Debug.DrawRay(checkLocation.transform.position, Vector3.down * currentRayLength, 

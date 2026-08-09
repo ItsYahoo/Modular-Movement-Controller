@@ -33,6 +33,7 @@ MonoBehaviour:
   maxStamina: 100
   regenRate: 20
   regenDelay: 1
-  regenBuffer: 1.5
+  regenBuffer: 3.21
+  fillToMax: 1
   sprintCost: 25.5
   dashCost: 15.5

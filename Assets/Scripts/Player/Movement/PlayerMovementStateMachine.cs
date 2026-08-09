@@ -25,7 +25,7 @@ public class PlayerMovementStateMachine : StateManager<PlayerMovementStateMachin
     [SerializeField] private CinemachineCamera cinemachineCamera;
     [SerializeField] private SpeedLinesController speedLinesController;
     public StaminaResource staminaResource;
-    private PlayerStateData playerStateData;
+    public PlayerStateData playerStateData;
 
     public new void Start()
     {
