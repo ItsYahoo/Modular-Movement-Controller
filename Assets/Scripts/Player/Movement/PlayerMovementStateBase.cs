@@ -158,4 +158,15 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
         
         stateData.verticalVelocity = Mathf.Sqrt(jumpForce * -2f * gravity);
     }
+
+    protected void PreformDash()
+    {
+        
+    }
+
+    protected bool CanDash()
+    {
+        return PlayerInputReader.instance.playerInput.Player.Dash.triggered 
+               && stateData.dashCooldown <= 0;
+    }
 }

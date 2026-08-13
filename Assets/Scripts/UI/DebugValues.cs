@@ -28,27 +28,27 @@ public class DebugValues : MonoBehaviour
     {
         currentState.text = playerStateMachine.currentState.StateKey.ToString();
         
-        groundedTrue.SetActive(playerStateMachine.playerStateData.GroundDetector.isGrounded);
-        groundedFalse.SetActive(!playerStateMachine.playerStateData.GroundDetector.isGrounded);
+        groundedTrue.SetActive(playerStateMachine.context.GroundDetector.isGrounded);
+        groundedFalse.SetActive(!playerStateMachine.context.GroundDetector.isGrounded);
         
-        speed.text = playerStateMachine.playerStateData.currentSpeed.ToString("F2") + " m/s";
-        ChangeBarValue(playerStateMachine.playerStateData.currentSpeed, 
-            playerStateMachine.playerStateData.MovementSettings.GetRunSpeed(), 
+        speed.text = playerStateMachine.context.currentSpeed.ToString("F2") + " m/s";
+        ChangeBarValue(playerStateMachine.context.currentSpeed, 
+            playerStateMachine.context.MovementSettings.GetRunSpeed(), 
             speedBar);
         
-        stamina.text = playerStateMachine.staminaResource.GetCurrentStamina().ToString("F1") + " / " + playerStateMachine.playerStateData.MovementSettings.GetMaxStamina();
+        stamina.text = playerStateMachine.staminaResource.GetCurrentStamina().ToString("F1") + " / " + playerStateMachine.context.MovementSettings.GetMaxStamina();
         ChangeBarValue(playerStateMachine.staminaResource.GetCurrentStamina(), 
-            playerStateMachine.playerStateData.MovementSettings.GetMaxStamina(), 
+            playerStateMachine.context.MovementSettings.GetMaxStamina(), 
             staminaBar);
         
         dashTime.text = "TODO";
         
-        slopeAngle.text = playerStateMachine.playerStateData.GroundDetector.slopeAngle.ToString("F2") + " °";
-        ChangeBarValue(playerStateMachine.playerStateData.GroundDetector.slopeAngle, 
+        slopeAngle.text = playerStateMachine.context.GroundDetector.slopeAngle.ToString("F2") + " °";
+        ChangeBarValue(playerStateMachine.context.GroundDetector.slopeAngle, 
             360, 
             slopeBar);
         
-        velocity.text = playerStateMachine.playerStateData.currentVelocity.ToString("F1");
+        velocity.text = playerStateMachine.context.currentVelocity.ToString("F1");
         hasInput.text = PlayerInputReader.instance.moveInput.ToString();
     }
 

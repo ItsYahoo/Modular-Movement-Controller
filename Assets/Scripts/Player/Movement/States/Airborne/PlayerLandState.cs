@@ -23,7 +23,7 @@ public class PlayerLandState : PlayerMovementStateBase
         landTimer += Time.deltaTime;
     }
 
-    public override PlayerStates ReturnNewState()
+    /*public override PlayerStates ReturnNewState()
     {
         if (landTimer < stateData.MovementSettings.GetLandDuration())
             return StateKey;
@@ -32,7 +32,7 @@ public class PlayerLandState : PlayerMovementStateBase
             return PlayerInputReader.instance.sprintHeld ? PlayerStates.Run : PlayerStates.Walk;
         
         return PlayerStates.Idle;
-    }
+    }*/
 
     public override void ExitState()
     {

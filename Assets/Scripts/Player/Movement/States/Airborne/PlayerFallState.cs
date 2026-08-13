@@ -20,7 +20,7 @@ public class PlayerFallState : PlayerMovementStateBase
         bufferTimer += Time.deltaTime;
     }
 
-    public override PlayerStates ReturnNewState()
+    /*public override PlayerStates ReturnNewState()
     {
         if (bufferTimer <= stateData.MovementSettings.GetCoyoteTime()
             && PlayerInputReader.instance.playerInput.Player.Jump.triggered
@@ -31,7 +31,7 @@ public class PlayerFallState : PlayerMovementStateBase
             return PlayerStates.Land;
 
         return StateKey;
-    }
+    }*/
     
     public override void ExitState()
     {

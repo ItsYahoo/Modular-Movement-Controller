@@ -11,7 +11,7 @@ public class PlayerRunState : PlayerMovementStateBase
         stateData.SpeedLinesController.SetIntensity(0.25f);
     }
 
-    public override PlayerStates ReturnNewState()
+    /*public override PlayerStates ReturnNewState()
     {
         bool stillHasStamina = stateData.StaminaResource.Drain(
             stateData.MovementSettings.GetSprintCost(), 
@@ -29,11 +29,14 @@ public class PlayerRunState : PlayerMovementStateBase
         if (!stateData.GroundDetector.isGrounded)
             return PlayerStates.Fall;
         
+        if (CanDash())
+            return PlayerStates.Dash;
+        
         if (PlayerInputReader.instance.playerInput.Player.Jump.triggered)
             return PlayerStates.Jump;
 
         return StateKey;
-    }
+    }*/
 
     public override void ExitState()
     {

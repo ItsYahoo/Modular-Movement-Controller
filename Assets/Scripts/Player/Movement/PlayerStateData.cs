@@ -22,6 +22,7 @@ public class PlayerStateData
     public Vector3 currentHorizontalVelocity { get; set; }
     public float verticalVelocity { get; set; }
     public bool ignoreGroundStickForce { get; set; }
+    public float dashCooldown { get; set; }
     
     public PlayerStateData(
         PlayerMovementStateMachine movementStateMachine,

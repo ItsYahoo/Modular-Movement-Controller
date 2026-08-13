@@ -11,7 +11,7 @@ public class PlayerWalkState : PlayerMovementStateBase
     }
 
 
-    public override PlayerStates ReturnNewState()
+    /*public override PlayerStates ReturnNewState()
     {
         if (!PlayerInputReader.instance.IsMoving())
             return PlayerStates.Idle;
@@ -26,5 +26,5 @@ public class PlayerWalkState : PlayerMovementStateBase
             return PlayerStates.Jump;
 
         return StateKey;
-    }
+    }*/
 }

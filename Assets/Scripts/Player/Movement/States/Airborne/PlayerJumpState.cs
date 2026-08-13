@@ -31,7 +31,7 @@ public class PlayerJumpState : PlayerMovementStateBase
         }
     }
 
-    public override PlayerStates ReturnNewState()
+    /*public override PlayerStates ReturnNewState()
     {
         if (hasLaunched && !stateData.GroundDetector.isGrounded)
             hasLeftGround = true;
@@ -47,7 +47,7 @@ public class PlayerJumpState : PlayerMovementStateBase
         }
 
         return StateKey;
-    }
+    }*/
     
     public override void ExitState()
     {
