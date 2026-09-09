@@ -10,10 +10,10 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
         this.stateData = stateData;
     }
 
-    public override void TickState()
+    public override void FixedTickState()
     {
         Move(PlayerInputReader.instance.moveInput);
-        stateData.StaminaResource.TickStamina(Time.deltaTime);
+        stateData.StaminaResource.TickStamina(Time.fixedDeltaTime);
     }
 
     #region Movement and Rotation Logic
@@ -29,22 +29,30 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
         CalculateCurrentHorizontalVelocity(cameraRelativeDirection);
         CalculateRotation(cameraRelativeDirection);
         
-        // Apply Final Velocity
-        Vector3 finalVelocity = new  Vector3(stateData.currentHorizontalVelocity.x, stateData.currentVelocity.y, stateData.currentHorizontalVelocity.z);
+        // Create Final Velocity
+        Vector3 finalVelocity = new  Vector3(
+            stateData.currentHorizontalVelocity.x, 
+            stateData.currentVelocity.y, 
+            stateData.currentHorizontalVelocity.z);
         stateData.currentVelocity = finalVelocity;
 
-        stateData.CharacterController.Move(stateData.currentVelocity * Time.deltaTime);
+        Vector3 selfDisplacement = stateData.currentVelocity * Time.fixedDeltaTime;
+
+        stateData.CharacterController.Move(selfDisplacement);
     }
 
     private void CalculateGravity()
     {
         Vector3 tempYVelocity = stateData.currentVelocity;
-
+        
+        // When the player is grounded we want to add a tiny bit of downwards force
+        // to keep the player from flying off slopes
         if (stateData.GroundDetector.isGrounded && !stateData.ignoreGroundStickForce)
         {
             stateData.verticalVelocity = 0f;
             tempYVelocity.y = -stateData.MovementSettings.GetGroundStickForce();
         }
+        // Add vertical velocity downwards while the player is not ground
         else
         {
             stateData.verticalVelocity += stateData.MovementSettings.GetGravity() * Time.deltaTime;
@@ -79,19 +87,19 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
 
     private void CalculateCurrentSpeed()
     {
-        float landingMul = stateData.MovementStateMachine.currentState is PlayerLandState ? 0 : 1;
+        float landingMul = stateData.MovementStateMachine.currentState is PlayerLandState ? 
+            stateData.MovementSettings.GetLandSpeedMultiplier() : 1;
         float run = stateData.MovementStateMachine.currentState is PlayerRunState ? 1 : 0; // 1 if run, 0 if walk
+        // get the movement speed using (R * RS + (1 - R) * WS) * Mul
         float moveSpeed = (run * stateData.MovementSettings.GetRunSpeed() + (1 - run) * 
-                            stateData.MovementSettings.GetWalkSpeed()) *
+                              stateData.MovementSettings.GetWalkSpeed()) *
                           (stateData.MovementSettings.GetEnvironmentMultiplier() * landingMul);
         float targetSpeed = PlayerInputReader.instance.IsMoving() ? moveSpeed : 0f;
         
         float speedChangeRate = stateData.currentSpeed < targetSpeed
             ? stateData.MovementSettings.GetAcceleration() : stateData.MovementSettings.GetDeceleration();
 
-        stateData.currentSpeed = Mathf.MoveTowards(
-            stateData.currentSpeed, targetSpeed, speedChangeRate * Time.deltaTime);
-        
+        stateData.currentSpeed = Mathf.MoveTowards(stateData.currentSpeed, targetSpeed, speedChangeRate * Time.deltaTime);
         stateData.Animator.SetFloat("CurrentSpeed", stateData.currentSpeed);
     }
 
@@ -124,13 +132,12 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
         Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeDirection);
 
         stateData.PlayerTransform.rotation = Quaternion.Slerp(
-            stateData.PlayerTransform.rotation, targetRotation, stateData.MovementSettings.GetTurnSmoothTime() * Time.deltaTime);
+            stateData.PlayerTransform.rotation, targetRotation,
+            stateData.MovementSettings.GetTurnSmoothTime() * Time.deltaTime);
     }
 
     private float GetSpeedChangeRate(bool changingDirection)
     {
-        bool isAirborne = !stateData.GroundDetector.isGrounded;
-
         if (!stateData.GroundDetector.isGrounded)
             return GetAirControlRate();
         
@@ -162,11 +169,5 @@ public abstract class PlayerMovementStateBase : StateBase<PlayerStates>
     protected void PreformDash()
     {
         
-    }
-
-    protected bool CanDash()
-    {
-        return PlayerInputReader.instance.playerInput.Player.Dash.triggered 
-               && stateData.dashCooldown <= 0;
     }
 }

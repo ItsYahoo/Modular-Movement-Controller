@@ -51,7 +51,7 @@ public class GroundDetector : MonoBehaviour
         {
             Vector3 sphereOrigin = checkLocation.transform.position + Vector3.up * sphereCastStartOffset;
             if (!Physics.SphereCast(sphereOrigin, sphereRadius, Vector3.down,
-                    out hit, currentRayLength, groundLayer))
+                    out hit, currentRayLength, groundLayer, QueryTriggerInteraction.Ignore))
             {
                 // There is no ground
                 isGrounded = false;
@@ -66,7 +66,7 @@ public class GroundDetector : MonoBehaviour
         else
         {
             if (!Physics.Raycast(checkLocation.transform.position, Vector3.down,
-                    out hit, currentRayLength, groundLayer))
+                    out hit, currentRayLength, groundLayer, QueryTriggerInteraction.Ignore))
             {
                 // There is no ground
                 // TODO: UPDATE TO STOP DUPLICATE CODE

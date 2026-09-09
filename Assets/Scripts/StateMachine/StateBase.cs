@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class StateBase<TStates> where TStates : Enum
@@ -10,5 +11,4 @@ public abstract class StateBase<TStates> where TStates : Enum
     public virtual void TickState() { } 
     public virtual void FixedTickState() { }
     public virtual void LateTickState() { }
-    
 }

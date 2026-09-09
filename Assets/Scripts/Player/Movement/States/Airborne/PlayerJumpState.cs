@@ -4,14 +4,13 @@ using static PlayerMovementStateMachine;
 public class PlayerJumpState : PlayerMovementStateBase
 {
     public PlayerJumpState(PlayerStateData stateData, PlayerStates stateKey) : base(stateData, stateKey) {}
-    private bool hasLeftGround;
     private float jumpTimer;
     private bool hasLaunched;
 
     public override void EnterState()
     {
         Debug.Log("Entering Jump State");
-        hasLeftGround = false;
+        stateData.hasLeftGround = false;
         jumpTimer = 0f;
         hasLaunched = false;
 
@@ -29,25 +28,10 @@ public class PlayerJumpState : PlayerMovementStateBase
             PreformJump();
             hasLaunched = true;
         }
-    }
-
-    /*public override PlayerStates ReturnNewState()
-    {
+        
         if (hasLaunched && !stateData.GroundDetector.isGrounded)
-            hasLeftGround = true;
-
-        if (hasLeftGround && stateData.verticalVelocity <= 0f)
-        {
-            return PlayerStates.Fall;
-        }
-
-        if (hasLeftGround && stateData.GroundDetector.isGrounded)
-        {
-            return PlayerStates.Land;
-        }
-
-        return StateKey;
-    }*/
+            stateData.hasLeftGround = true;
+    }
     
     public override void ExitState()
     {

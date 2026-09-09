@@ -15,7 +15,7 @@ public class PlayerStateData
     public CinemachineImpulseSource ImpulseSource { get; private set; }
     public Transform PlayerTransform { get; private set; }
     public StaminaResource StaminaResource { get; private set; }
-    
+
     // IN STATE VARIABLES
     public float currentSpeed { get; set; }
     public Vector3 currentVelocity { get; set; }
@@ -23,8 +23,13 @@ public class PlayerStateData
     public float verticalVelocity { get; set; }
     public bool ignoreGroundStickForce { get; set; }
     public float dashCooldown { get; set; }
-    
-    public PlayerStateData(
+    public float dashStayTimer { get; set; }
+    public float landStayTimer { get; set; }
+    public bool hasLeftGround { get; set; }
+    public float JumpBufferTimer { get; set; }
+    public Vector3 pendingExternalDisplacement { get; set; }
+
+public PlayerStateData(
         PlayerMovementStateMachine movementStateMachine,
         MovementSettings movementSettings,
         SpeedLinesController speedLinesController,

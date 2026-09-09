@@ -9,22 +9,4 @@ public class PlayerWalkState : PlayerMovementStateBase
     {
         Debug.Log("Entering Walk State");
     }
-
-
-    /*public override PlayerStates ReturnNewState()
-    {
-        if (!PlayerInputReader.instance.IsMoving())
-            return PlayerStates.Idle;
-
-        if (PlayerInputReader.instance.sprintHeld && stateData.StaminaResource.CanAfford(stateData.MovementSettings.GetSprintCost()))
-            return PlayerStates.Run;
-        
-        if (!stateData.GroundDetector.isGrounded)
-            return PlayerStates.Fall;
-        
-        if (PlayerInputReader.instance.playerInput.Player.Jump.triggered)
-            return PlayerStates.Jump;
-
-        return StateKey;
-    }*/
 }

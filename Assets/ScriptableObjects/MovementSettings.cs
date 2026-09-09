@@ -19,6 +19,7 @@ public class MovementSettings : ScriptableObject
     [SerializeField] [Range(-20f, -0.1f)] private float gravity = -15.85f;
     [SerializeField] [Range(0.0f, 20f)] private float groundStickForce = 8.5f;
     [SerializeField] [Range(0.0f, 5f)] private float landDuration = 0.15f;
+    [SerializeField] [Range(0.0f, 1f)] private float landSpeedMultiplier = 0.5f;
     
     [Header("Air Settings")]
     [SerializeField] [Range(30f, 60f)] private int jumpFrameRate = 30;
@@ -50,6 +51,7 @@ public class MovementSettings : ScriptableObject
     public float GetDashDuration() { return dashDuration; }
     public float GetDashCooldown() { return dashCooldown; }
     public float GetLandDuration() { return landDuration; }
+    public float GetLandSpeedMultiplier() { return landSpeedMultiplier; }
     public float GetGravity() { return gravity; }
     public float GetGroundStickForce() { return groundStickForce; }
     public float GetJumpForce() { return jumpForce; }

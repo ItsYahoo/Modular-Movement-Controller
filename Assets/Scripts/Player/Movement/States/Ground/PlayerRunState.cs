@@ -11,32 +11,11 @@ public class PlayerRunState : PlayerMovementStateBase
         stateData.SpeedLinesController.SetIntensity(0.25f);
     }
 
-    /*public override PlayerStates ReturnNewState()
+    public override void TickState()
     {
-        bool stillHasStamina = stateData.StaminaResource.Drain(
-            stateData.MovementSettings.GetSprintCost(), 
-            Time.deltaTime, true);
-        
-        if (!stillHasStamina)
-            return PlayerStates.Walk;
-        
-        if (!PlayerInputReader.instance.IsMoving())
-            return PlayerStates.Idle;
-        
-        if (!PlayerInputReader.instance.sprintHeld)
-            return PlayerStates.Walk;
-        
-        if (!stateData.GroundDetector.isGrounded)
-            return PlayerStates.Fall;
-        
-        if (CanDash())
-            return PlayerStates.Dash;
-        
-        if (PlayerInputReader.instance.playerInput.Player.Jump.triggered)
-            return PlayerStates.Jump;
-
-        return StateKey;
-    }*/
+        base.TickState();
+        stateData.StaminaResource.Drain(stateData.MovementSettings.GetSprintCost(), Time.deltaTime, true);
+    }
 
     public override void ExitState()
     {

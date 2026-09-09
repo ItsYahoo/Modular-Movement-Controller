@@ -25,6 +25,7 @@ MonoBehaviour:
   gravity: -15.5
   groundStickForce: 8.5
   landDuration: 0.15
+  landSpeedMultiplier: 1
   jumpFrameRate: 30
   launchFrame: 4
   jumpForce: 1.15
