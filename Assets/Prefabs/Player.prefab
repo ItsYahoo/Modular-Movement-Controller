@@ -63,7 +63,7 @@ CapsuleCollider:
   m_Radius: 0.3
   m_Height: 1.5
   m_Direction: 1
-  m_Center: {x: 0, y: -0.2, z: 0}
+  m_Center: {x: 0, y: -0.28, z: 0}
 --- !u!143 &4852499552994934725
 CharacterController:
   m_ObjectHideFlags: 0
@@ -86,9 +86,9 @@ CharacterController:
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.2, z: 0}
+  m_Center: {x: 0, y: -0.28, z: 0}
 --- !u!114 &7322207890892591758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2691476308497476548}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15212339, y: 0, z: 0, w: 0.98836154}
+  m_LocalRotation: {x: 0.15212333, y: 0, z: 0, w: 0.98836154}
   m_LocalPosition: {x: 0, y: 0.9517641, z: -2.3842924}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -898,6 +898,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: da1948d293c173a4782c630f03a3d7f2, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 10038fdbf93c4dd43af9ce774d03a956, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -48,17 +48,14 @@ public class DebugValues : MonoBehaviour
             360, 
             slopeBar);
         
-        velocity.text = playerStateMachine.context.currentVelocity.ToString("F1");
+        velocity.text = playerStateMachine.context.CharacterController.velocity.ToString("F1");
         hasInput.text = PlayerInputReader.instance.moveInput.ToString();
     }
 
     private void ChangeBarValue(float currentValue, float maxValue, Image bar)
     {
         float normalizedValue = Mathf.Clamp01(currentValue / maxValue);
-        
-        bar.fillAmount = Mathf.MoveTowards(
-            bar.fillAmount,
-            normalizedValue,
-            3 * Time.deltaTime);
+
+        bar.fillAmount = normalizedValue;
     }
 }

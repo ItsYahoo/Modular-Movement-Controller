@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectFollow : MonoBehaviour
 {
     [SerializeField] private List<Transform> followPoints;
-    [SerializeField] private float speed = 5.5f;
+    [SerializeField] [Range(0f, 15f)] private float speed = 5.5f;
     [SerializeField] private bool debugMode;
 
     [Header("Waiting")]
